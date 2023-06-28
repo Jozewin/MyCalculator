@@ -51,13 +51,16 @@ class MainActivity : AppCompatActivity() {
         */
 
         binding.btnPlus.setOnClickListener {
-            binding.tvEnter.append("+")
+            if (binding.tvEnter.text.lastOrNull() != '+')
+                binding.tvEnter.append("+")
         }
         binding.btnMinus.setOnClickListener {
-            binding.tvEnter.append("-")
+            if (binding.tvEnter.text.lastOrNull() != '-')
+                binding.tvEnter.append("-")
         }
         binding.btnMultiply.setOnClickListener {
-            binding.tvEnter.append("*")
+            if (binding.tvEnter.text.lastOrNull() != '*')
+                binding.tvEnter.append("*")
         }
 
 
@@ -66,10 +69,12 @@ class MainActivity : AppCompatActivity() {
         Setting up onClickListener for EqualButton, DeleteButton and DotButton
         */
         binding.btnEqual.setOnClickListener {
-            val enterText = binding.tvEnter.text.toString()
-            val ans = ExpressionBuilder(enterText).build()
-            val finalAnswer = ans.evaluate()
-            binding.tvAnswer.text = finalAnswer.toString()
+            if (binding.tvEnter.text.lastOrNull()!in arrayOf('+','-','*','.')) {
+                val enterText = binding.tvEnter.text.toString()
+                val ans = ExpressionBuilder(enterText).build()
+                val finalAnswer = ans.evaluate()
+                binding.tvAnswer.text = finalAnswer.toString()
+            }
         }
 
         binding.btnDelete.setOnClickListener {
@@ -79,7 +84,10 @@ class MainActivity : AppCompatActivity() {
                 binding.tvEnter.text = text
             }
 
-//            binding.tvEnter.text = ""
+        binding.btnDot.setOnClickListener {
+            if (binding.tvEnter.text.lastOrNull() != '.')
+                binding.tvEnter.append(".")
+        }
         }
 
     }
