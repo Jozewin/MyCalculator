@@ -51,15 +51,28 @@ class MainActivity : AppCompatActivity() {
         */
 
         binding.btnPlus.setOnClickListener {
-            if (binding.tvEnter.text.lastOrNull() != '+')
+            if (binding.tvEnter.text.isEmpty()){
+                 binding.tvEnter.append("")
+                return@setOnClickListener
+            }
+            if (binding.tvEnter.text.last() != '+')
                 binding.tvEnter.append("+")
+
         }
         binding.btnMinus.setOnClickListener {
-            if (binding.tvEnter.text.lastOrNull() != '-')
+            if (binding.tvEnter.text.isEmpty()){
+                binding.tvEnter.append("")
+                return@setOnClickListener
+            }
+            if (binding.tvEnter.text.last() != '-')
                 binding.tvEnter.append("-")
         }
         binding.btnMultiply.setOnClickListener {
-            if (binding.tvEnter.text.lastOrNull() != '*')
+            if (binding.tvEnter.text.isEmpty()){
+                binding.tvEnter.append("")
+                return@setOnClickListener
+            }
+            if (binding.tvEnter.text.last() != '*')
                 binding.tvEnter.append("*")
         }
 
@@ -69,6 +82,10 @@ class MainActivity : AppCompatActivity() {
         Setting up onClickListener for EqualButton, DeleteButton and DotButton
         */
         binding.btnEqual.setOnClickListener {
+            if (binding.tvEnter.text.isEmpty()){
+                binding.tvEnter.append("")
+                return@setOnClickListener
+            }
             if (binding.tvEnter.text.lastOrNull()!in arrayOf('+','-','*','.')) {
                 val enterText = binding.tvEnter.text.toString()
                 val ans = ExpressionBuilder(enterText).build()
@@ -85,6 +102,10 @@ class MainActivity : AppCompatActivity() {
             }
 
         binding.btnDot.setOnClickListener {
+            if (binding.tvEnter.text.isEmpty()){
+                binding.tvEnter.append("")
+                return@setOnClickListener
+            }
             if (binding.tvEnter.text.lastOrNull() != '.')
                 binding.tvEnter.append(".")
         }
